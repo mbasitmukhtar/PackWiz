@@ -35,6 +35,7 @@ public class CallFilterFragment extends Fragment
 
     public CallFilterFragment()
     {
+        Log.d(TAG, "CallFilterFragment: constructor");
     }
 
 
@@ -55,6 +56,7 @@ public class CallFilterFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
+        Log.d(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
         if (getActivity() != null)
         {
@@ -70,6 +72,7 @@ public class CallFilterFragment extends Fragment
 
     private void getCallsData()
     {
+        Log.d(TAG, "getCallsData: ");
         logs.loadData();
         getIncomingCallsNumber();
         getOutgoingCallsNumber();
@@ -77,7 +80,7 @@ public class CallFilterFragment extends Fragment
         getTalkedCallsNumber();
 
         Timer timer = new Timer();
-        timer.schedule(new Refresh(), 0, 5000);
+        timer.schedule(new Refresh(), 0, 10000);
     }
 
     class Refresh extends TimerTask
@@ -90,8 +93,6 @@ public class CallFilterFragment extends Fragment
             {
                 getActivity().runOnUiThread(() ->
                 {
-                    Log.d(TAG, "runOnUiThread: ");
-//                    logs = CallLogUtils.getInstance(getActivity());
                     logs.loadData();
 
                     getIncomingCallsNumber();
@@ -106,6 +107,7 @@ public class CallFilterFragment extends Fragment
 
     private void getViews()
     {
+        Log.d(TAG, "getViews: ");
         if (getActivity() != null)
         {
             incomingBar = getActivity().findViewById(R.id.incomingCallsProgressBar);
@@ -154,6 +156,7 @@ public class CallFilterFragment extends Fragment
 
     private void getRuntimePermission()
     {
+        Log.d(TAG, "getRuntimePermission: ");
         if (getActivity() != null)
         {
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED)

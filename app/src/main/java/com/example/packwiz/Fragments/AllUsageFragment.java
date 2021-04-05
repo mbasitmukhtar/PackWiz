@@ -51,7 +51,7 @@ public class AllUsageFragment extends Fragment
 
     public AllUsageFragment()
     {
-
+        Log.d(TAG, "AllUsageFragment: constructor");
     }
 
     @Override
@@ -71,6 +71,7 @@ public class AllUsageFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
+        Log.d(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
 
         if (getActivity() != null)
@@ -82,12 +83,13 @@ public class AllUsageFragment extends Fragment
             getCallsData();
             getSmsCount();
 //            hasPermission(getActivity());
-            getUsageStatsPermissionsStatus(getActivity());
+//            getUsageStatsPermissionsStatus(getActivity());
         }
     }
 
     private void getCallsData()
     {
+        Log.d(TAG, "getCallsData: ");
         logs.loadData();
         getJazzCallsNumber();
         getZongCallsNumber();
@@ -95,7 +97,7 @@ public class AllUsageFragment extends Fragment
         getTelenorCallsNumber();
 
         Timer timer = new Timer();
-        timer.schedule(new Refresh(), 0, 5000);
+        timer.schedule(new Refresh(), 0, 10000);
     }
 
     class Refresh extends TimerTask
@@ -108,8 +110,6 @@ public class AllUsageFragment extends Fragment
             {
                 getActivity().runOnUiThread(() ->
                 {
-                    Log.d(TAG, "runOnUiThread: ");
-//                    logs = CallLogUtils.getInstance(getActivity());
                     logs.loadData();
 
                     getJazzCallsNumber();
@@ -118,7 +118,6 @@ public class AllUsageFragment extends Fragment
                     getTelenorCallsNumber();
 
                     getSmsCount();
-
                 });
             }
         }
@@ -126,6 +125,7 @@ public class AllUsageFragment extends Fragment
 
     private void getViews()
     {
+        Log.d(TAG, "getViews: ");
         if (getActivity() != null)
         {
             jazzBar = getActivity().findViewById(R.id.jazzCallsProgressBar);
@@ -217,7 +217,6 @@ public class AllUsageFragment extends Fragment
                 cursor.moveToNext();
             }
             cursor.close();
-            Log.d(TAG, "getSmsCount: count: " + sentSmsCount);
             smsBar.setProgress(sentSmsCount);
             sms.setText(String.valueOf(sentSmsCount));
         }
